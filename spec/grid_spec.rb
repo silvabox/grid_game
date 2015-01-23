@@ -39,7 +39,7 @@ describe Grid do
 		end
 	end
 
-	describe 'set content_at' do
+	describe 'set_content_at' do
 		it 'sets content of cell at given location' do
 			subject.set_content_at 'A1', 'Test'
 			expect(subject.cell_at('A1').content).to eq 'Test'
@@ -51,12 +51,27 @@ describe Grid do
 
 		it 'returns an array of cells in a row' do
 			row = {
-				'A1' => subject.cell_at('A1'),
-				'A2' => subject.cell_at('A2'),
-				'A3' => subject.cell_at('A3'),
-				'A4' => subject.cell_at('A4')
+				'B1' => subject.cell_at('B1'),
+				'B2' => subject.cell_at('B2'),
+				'B3' => subject.cell_at('B3'),
+				'B4' => subject.cell_at('B4')
 			}
-			expect(subject.row('A')).to eq subject.values
+			expect(subject.row('B')).to eq row.values
+		end
+	end
+
+	describe 'column' do
+		subject { Grid.new height: 5, width: 4 }
+
+		it 'returns an array of cells in a column' do
+			col = {
+				'A3' => subject.cell_at('A3'),
+				'B3' => subject.cell_at('B3'),
+				'C3' => subject.cell_at('C3'),
+				'D3' => subject.cell_at('D3'),
+				'E3' => subject.cell_at('E3')
+			}
+			expect(subject.column(3)).to eq col.values
 		end
 	end
 end
