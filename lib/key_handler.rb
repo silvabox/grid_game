@@ -1,33 +1,24 @@
 class KeyHandler
 	ROW_NUMS = ('A'..'Z').to_a
 
-	def get_key(client_key)
-		row = client_key.chars.first
-		col = client_key.chars.last
-		"#{ROW_NUMS.index(row) + 1}:#{col}"
+	def get_coords(key)
+		row = key.chars.first
+		col = key.chars.last
+		[get_row_coord(row), Integer(col)]
 	end
 
-	def get_client_key(key)
-		row = ROW_NUMS[Integer(key.chars.first) - 1]
-		col = key.chars.last
+	def get_key(*coords)
+		row = ROW_NUMS[coords.first - 1]
+		col = coords.last
 		"#{row}#{col}"
 	end
 
-	def get_row_keys(row, width)
-		row = ROW_NUMS.index(row) + 1
-		keys = []
-		(1..width).each do |col|
-			keys << "#{row}:#{col}"
-		end
-		keys
+	def get_row_coord(row)
+		ROW_NUMS.index(row) + 1
 	end
 
-	def get_column_keys(col, height)
-		cols = []
-		(1..height).each do |row|
-			cols << "#{row}:#{col}"
-		end
-		cols
+	def get_column_coord(col)
+		col
 	end
 
 	def valid_key?(key)

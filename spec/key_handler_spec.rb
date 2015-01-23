@@ -1,27 +1,33 @@
 require './lib/key_handler'
 
 describe KeyHandler do
+	describe 'get_coords' do
+		it "converts 'A1' to [1,1]" do
+			expect(subject.get_coords('A1')).to eq [1,1]
+		end
+		it "converts 'B3' to [2,3]" do
+			expect(subject.get_coords('B3')).to eq [2,3]
+		end
+	end
+
 	describe 'get_key' do
-		it "converts 'A1' to '1:1'" do
-			expect(subject.get_key('A1')).to eq '1:1'
+		it "converts [1,1] to 'A1'" do
+			expect(subject.get_key(1,1)).to eq 'A1'
+		end
+		it "converts [2,3] to 'B3'" do
+			expect(subject.get_key(2,3)).to eq 'B3'
 		end
 	end
 
-	describe 'get_client_key' do
-		it "converts '1:1' to 'A1'" do
-			expect(subject.get_client_key('1:1')).to eq 'A1'
+	describe 'get_row_coord' do
+		it 'returns the key for a row' do
+			expect(subject.get_row_coord('B')).to eq 2
 		end
 	end
 
-	describe 'get_row_keys' do
-		it 'returns an array of keys for a row' do
-			expect(subject.get_row_keys('B', 3)).to eq ['2:1', '2:2', '2:3']
-		end
-	end
-
-	describe 'get_column_keys' do
-		it 'returns an array of keys for a column' do
-			expect(subject.get_column_keys(2, 3)).to eq ['1:2', '2:2', '3:2']
+	describe 'get_column_coord' do
+		it 'returns the for a column' do
+			expect(subject.get_column_coord(2)).to eq 2
 		end
 	end
 

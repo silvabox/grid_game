@@ -45,4 +45,21 @@ class Grid
 	def create_cell_at(key, location)
 		@matrix[key] = Cell.new(location)
 	end
+
+	def get_row_keys(row, width)
+		row = ROW_NUMS.index(row) + 1
+		keys = []
+		(1..width).each do |col|
+			keys << "#{row}:#{col}"
+		end
+		keys
+	end
+
+	def get_column_keys(col, height)
+		cols = []
+		(1..height).each do |row|
+			cols << "#{row}:#{col}"
+		end
+		cols
+	end
 end

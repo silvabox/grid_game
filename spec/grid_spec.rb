@@ -74,4 +74,8 @@ describe Grid do
 			expect(subject.column(3)).to eq col.values
 		end
 	end
+
+	describe 'each' do
+		it ''
+	end
 end
