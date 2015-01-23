@@ -1,4 +1,4 @@
-class KeyHandler
+class LocationHandler
 	ROW_NUMS = ('A'..'Z').to_a
 
 	def get_coords(key)
@@ -7,7 +7,7 @@ class KeyHandler
 		[get_row_coord(row), Integer(col)]
 	end
 
-	def get_key(*coords)
+	def get_location(*coords)
 		row = ROW_NUMS[coords.first - 1]
 		col = coords.last
 		"#{row}#{col}"
@@ -21,7 +21,7 @@ class KeyHandler
 		col
 	end
 
-	def valid_key?(key)
+	def valid_location?(key)
 		true
 	end
 end

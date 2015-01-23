@@ -1,6 +1,6 @@
-require './lib/key_handler'
+require './lib/location_handler'
 
-describe KeyHandler do
+describe LocationHandler do
 	describe 'get_coords' do
 		it "converts 'A1' to [1,1]" do
 			expect(subject.get_coords('A1')).to eq [1,1]
@@ -10,17 +10,17 @@ describe KeyHandler do
 		end
 	end
 
-	describe 'get_key' do
+	describe 'get_location' do
 		it "converts [1,1] to 'A1'" do
-			expect(subject.get_key(1,1)).to eq 'A1'
+			expect(subject.get_location(1,1)).to eq 'A1'
 		end
 		it "converts [2,3] to 'B3'" do
-			expect(subject.get_key(2,3)).to eq 'B3'
+			expect(subject.get_location(2,3)).to eq 'B3'
 		end
 	end
 
 	describe 'get_row_coord' do
-		it 'returns the key for a row' do
+		it 'returns the location for a row' do
 			expect(subject.get_row_coord('B')).to eq 2
 		end
 	end
@@ -31,9 +31,9 @@ describe KeyHandler do
 		end
 	end
 
-	describe 'valid_key?' do
+	describe 'valid_location?' do
 		it "returns true for 'A1'" do
-			expect(subject.valid_key?('A1')).to be true
+			expect(subject.valid_location?('A1')).to be true
 		end
 	end
 end
