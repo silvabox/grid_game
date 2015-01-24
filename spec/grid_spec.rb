@@ -11,6 +11,10 @@ describe Grid do
     expect(subject.height).to eq Grid::DEFAULT_WIDTH
   end
 
+  it 'has a default position handler' do
+    expect(subject.position_handler).to be_a Grid::DEFAULT_POSITION_HANDLER
+  end
+
   context 'when initializing with height and width' do
     subject { Grid.new(height: 10, width: 7)}
 
@@ -19,6 +23,15 @@ describe Grid do
     end
     it 'must have a width' do
       expect(subject.width).to eq 7
+    end
+  end
+
+  context 'when initializing with a position_handler' do
+    let(:handler) { double PositionHandler } 
+    subject { Grid.new(position_handler: handler)}
+
+    it 'sets the position handler' do
+      expect(subject.position_handler).to eq handler
     end
   end
 

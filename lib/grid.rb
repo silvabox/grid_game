@@ -4,15 +4,16 @@ require_relative 'position_handler'
 class Grid
   DEFAULT_HEIGHT = 9
   DEFAULT_WIDTH = 9
+  DEFAULT_POSITION_HANDLER = PositionHandler
 
-  attr_reader :height, :width
+  attr_reader :height, :width, :position_handler
 
-  def initialize(height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH, &block)
+  def initialize(height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH, position_handler: DEFAULT_POSITION_HANDLER.new, &block)
     @height = height
     @width = width
     @matrix = {}
 
-    @position_handler = PositionHandler.new
+    @position_handler = position_handler
 
     each_cell(&block) if block_given?
   end
