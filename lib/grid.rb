@@ -1,3 +1,6 @@
+require_relative 'cell'
+require_relative 'position_handler'
+
 class Grid
 	DEFAULT_HEIGHT = 9
 	DEFAULT_WIDTH = 9
@@ -32,6 +35,34 @@ class Grid
 	def column(at)
 		keys = column_keys at
 		keys.map { |key| get_cell_at key }
+	end
+
+	def each(&block)
+		Enumerator.new do |yielder|
+			# (1..height).each do
+		end
+	end
+
+	def each_row(&block)
+		enum = Enumerator.new do |yielder|
+			(1..height).each do |row|
+				cells = (1..width).map { |col| get_cell_at [row, col].join(':') }
+				yielder.yield cells
+			end
+		end
+		enum.each &block if block_given?
+		enum
+	end
+
+	def each_column(&block)
+		enum = Enumerator.new do |yielder|
+			(1..width).each do |col|
+				cells = (1..height).map { |row| get_cell_at [row, col].join(':') }
+				yielder.yield cells
+			end
+		end
+		enum.each &block if block_given?
+		enum
 	end
 
 	private

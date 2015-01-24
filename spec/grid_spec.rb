@@ -76,6 +76,40 @@ describe Grid do
 	end
 
 	describe 'each' do
-		it ''
+		it 'returns an Enumerator' do
+			expect(subject.each).to be_an Enumerator
+		end
+	end
+
+	describe 'each_row' do
+		subject { Grid.new height: 2, width: 3 }
+
+		it 'returns an Enumerator' do
+			expect(subject.each_row).to be_an Enumerator
+		end
+
+		it 'iterates each row' do
+			expected = ('A'..'B').map { |row| subject.row(row) }
+
+			rows = subject.each_row.to_a
+
+			expect(rows).to eq expected
+		end
+	end
+
+	describe 'each_column' do
+		subject { Grid.new height: 3, width: 2 }
+
+		it 'returns an Enumerator' do
+			expect(subject.each_column).to be_an Enumerator
+		end
+
+		it 'iterates each col' do
+			expected = [1, 2].map { |col| subject.column(col) }
+
+			cols = subject.each_column.to_a
+
+			expect(cols).to eq expected
+		end
 	end
 end
