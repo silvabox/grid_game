@@ -22,7 +22,7 @@ describe Grid do
     end
   end
 
-  describe 'initializing with a block' do
+  context 'when initializing with a block' do
     let(:cells) { [] }
 
     subject do 
@@ -130,7 +130,7 @@ describe Grid do
       expect(subject.each_column).to be_an Enumerator
     end
 
-    it 'iterates each col' do
+    it 'iterates each column' do
       expected = [1, 2].map { |col| subject.column(col) }
 
       cols = []
