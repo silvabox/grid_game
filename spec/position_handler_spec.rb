@@ -1,39 +1,39 @@
-require './lib/location_handler'
+require './lib/position_handler'
 
-describe LocationHandler do
-	describe 'get_coords' do
+describe PositionHandler do
+	describe 'coords' do
 		it "converts 'A1' to [1,1]" do
-			expect(subject.get_coords('A1')).to eq [1,1]
+			expect(subject.coords('A1')).to eq [1,1]
 		end
 		it "converts 'B3' to [2,3]" do
-			expect(subject.get_coords('B3')).to eq [2,3]
+			expect(subject.coords('B3')).to eq [2,3]
 		end
 	end
 
-	describe 'get_location' do
+	describe 'position' do
 		it "converts [1,1] to 'A1'" do
-			expect(subject.get_location(1,1)).to eq 'A1'
+			expect(subject.position(1,1)).to eq 'A1'
 		end
 		it "converts [2,3] to 'B3'" do
-			expect(subject.get_location(2,3)).to eq 'B3'
+			expect(subject.position(2,3)).to eq 'B3'
 		end
 	end
 
-	describe 'get_row_coord' do
-		it 'returns the location for a row' do
-			expect(subject.get_row_coord('B')).to eq 2
+	describe 'row_coord' do
+		it 'returns the position for a row' do
+			expect(subject.row_coord('B')).to eq 2
 		end
 	end
 
-	describe 'get_column_coord' do
+	describe 'column_coord' do
 		it 'returns the for a column' do
-			expect(subject.get_column_coord(2)).to eq 2
+			expect(subject.column_coord(2)).to eq 2
 		end
 	end
 
-	describe 'valid_location?' do
+	describe 'valid_position?' do
 		it "returns true for 'A1'" do
-			expect(subject.valid_location?('A1')).to be true
+			expect(subject.valid_position?('A1')).to be true
 		end
 	end
 end

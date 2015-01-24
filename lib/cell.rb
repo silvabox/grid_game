@@ -1,12 +1,12 @@
 class Cell
 	attr_accessor :content
-	attr_reader :location
+	attr_reader :position
 
-	def initialize(location)
-		@location = location
+	def initialize(position)
+		@position = position
 	end
 
 	def to_s
-		"Cell #{location}"
+		"Cell #{position}"
 	end
 end

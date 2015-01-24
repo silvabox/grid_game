@@ -23,24 +23,24 @@ describe Grid do
 	end
 
 	describe 'cell_at' do
-		it 'returns a cell at a given location' do
+		it 'returns a cell at a given position' do
 			expect(subject.cell_at('A1')).to be_a Cell
 		end
 
-		it 'returns different cells for different locations' do
+		it 'returns different cells for different positions' do
 			expect(subject.cell_at('A1')).not_to eq subject.cell_at('B2')
 		end
 	end
 
 	describe 'content_at' do
-		it 'returns the same content as the cell at the same location' do
+		it 'returns the same content as the cell at the same position' do
 			subject.cell_at('A1').content = 'Test'
 			expect(subject.content_at('A1')).to eq subject.cell_at('A1').content
 		end
 	end
 
 	describe 'set_content_at' do
-		it 'sets content of cell at given location' do
+		it 'sets content of cell at given position' do
 			subject.set_content_at 'A1', 'Test'
 			expect(subject.cell_at('A1').content).to eq 'Test'
 		end

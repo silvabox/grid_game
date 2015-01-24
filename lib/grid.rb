@@ -9,57 +9,57 @@ class Grid
 		@width = width
 		@matrix = {}
 
-		@key_handler = KeyHandler.new
+		@position_handler = PositionHandler.new
 	end
 
-	def cell_at(location)
-		key = @key_handler.get_key(location)
-		get_cell_at key, location
+	def cell_at(position)
+		get_cell_at key(position), position
 	end
 
-	def set_content_at(location, val)
-		cell_at(location).content = val
+	def set_content_at(position, val)
+		cell_at(position).content = val
 	end
 
-	def content_at(location)
-		cell_at(location).content
+	def content_at(position)
+		cell_at(position).content
 	end
 
 	def row(at)
-		keys = @key_handler.get_row_keys(at, width)
-		keys.map { |key| get_cell_at(key) }
+		keys = row_keys at
+		keys.map { |key| get_cell_at key }
 	end
 
 	def column(at)
-		keys = @key_handler.get_column_keys(at, height)
-		keys.map { |key| get_cell_at(key) }
+		keys = column_keys at
+		keys.map { |key| get_cell_at key }
 	end
 
 	private
 
-	def get_cell_at(key, location = nil)
-		location = @key_handler.get_client_key(key) unless location
-		return @matrix[key] || create_cell_at(key, location)
+	def key(position)
+		@position_handler.coords(position).join(':')
 	end
 
-	def create_cell_at(key, location)
-		@matrix[key] = Cell.new(location)
+	def coords(key)
+		key.split(':').map { |part| Integer(part) }
 	end
 
-	def get_row_keys(row, width)
-		row = ROW_NUMS.index(row) + 1
-		keys = []
-		(1..width).each do |col|
-			keys << "#{row}:#{col}"
-		end
-		keys
+	def get_cell_at(key, position = nil)
+		position = @position_handler.position(*coords(key)) unless position
+		return @matrix[key] || create_cell_at(key, position)
 	end
 
-	def get_column_keys(col, height)
-		cols = []
-		(1..height).each do |row|
-			cols << "#{row}:#{col}"
-		end
-		cols
+	def create_cell_at(key, position)
+		@matrix[key] = Cell.new position
+	end
+
+	def row_keys(row)
+		row = @position_handler.row_coord row
+		(1..width).map { |col| "#{row}:#{col}" }
+	end
+
+	def column_keys(col)
+		row = @position_handler.column_coord row
+		(1..height).map { |row| "#{row}:#{col}" }
 	end
 end
