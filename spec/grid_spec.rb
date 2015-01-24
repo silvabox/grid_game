@@ -79,6 +79,16 @@ describe Grid do
 		it 'returns an Enumerator' do
 			expect(subject.each).to be_an Enumerator
 		end
+
+		it 'iterates each cell' do
+		subject { Grid.new height: 3, width: 3 }
+			expected = subject.each_row.to_a.flatten
+
+			cells = []
+			subject.each { |cell| cells << cell }
+
+			expect(cells).to eq expected
+		end
 	end
 
 	describe 'each_row' do
@@ -91,7 +101,8 @@ describe Grid do
 		it 'iterates each row' do
 			expected = ('A'..'B').map { |row| subject.row(row) }
 
-			rows = subject.each_row.to_a
+			rows = []
+			subject.each_row { |row| rows << row }
 
 			expect(rows).to eq expected
 		end
@@ -107,7 +118,8 @@ describe Grid do
 		it 'iterates each col' do
 			expected = [1, 2].map { |col| subject.column(col) }
 
-			cols = subject.each_column.to_a
+			cols = []
+			subject.each_column { |col| cols << col }
 
 			expect(cols).to eq expected
 		end

@@ -38,9 +38,13 @@ class Grid
 	end
 
 	def each(&block)
-		Enumerator.new do |yielder|
-			# (1..height).each do
+		enum = Enumerator.new do |yielder|
+			each_row do |row|
+				row.each { |cell|  yielder.yield cell }
+			end
 		end
+		enum.each &block if block_given?
+		enum
 	end
 
 	def each_row(&block)
