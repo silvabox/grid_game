@@ -7,12 +7,14 @@ class Grid
 
 	attr_reader :height, :width
 
-	def initialize(height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH)
+	def initialize(height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH, &block)
 		@height = height
 		@width = width
 		@matrix = {}
 
 		@position_handler = PositionHandler.new
+
+		each_cell(&block) if block_given?
 	end
 
 	def cell_at(position)
@@ -37,7 +39,7 @@ class Grid
 		keys.map { |key| get_cell_at key }
 	end
 
-	def each(&block)
+	def each_cell(&block)
 		enum = Enumerator.new do |yielder|
 			each_row do |row|
 				row.each { |cell|  yielder.yield cell }

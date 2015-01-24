@@ -22,6 +22,20 @@ describe Grid do
 		end
 	end
 
+	describe 'initializing with a block' do
+		let(:cells) { [] }
+
+		subject do 
+			Grid.new(height: 3, width: 3) do |cell|
+				cells << cell
+			end
+		end
+
+		it 'should iterate all the cells in the new grid' do
+			expect(cells).to eq subject.each_cell.to_a
+		end
+	end
+
 	describe 'cell_at' do
 		it 'returns a cell at a given position' do
 			expect(subject.cell_at('A1')).to be_a Cell
@@ -75,17 +89,18 @@ describe Grid do
 		end
 	end
 
-	describe 'each' do
+	describe 'each_cell' do
+		subject { Grid.new height: 3, width: 3 }
+
 		it 'returns an Enumerator' do
-			expect(subject.each).to be_an Enumerator
+			expect(subject.each_cell).to be_an Enumerator
 		end
 
 		it 'iterates each cell' do
-		subject { Grid.new height: 3, width: 3 }
 			expected = subject.each_row.to_a.flatten
 
 			cells = []
-			subject.each { |cell| cells << cell }
+			subject.each_cell { |cell| cells << cell }
 
 			expect(cells).to eq expected
 		end
